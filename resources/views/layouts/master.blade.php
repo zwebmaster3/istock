@@ -2,8 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>iStock - @yield('title')</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <title>iStock - @yield('title')</title>
 
     <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('images/favicon/android-icon-192x192.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon/favicon-32x32.png') }}">
@@ -20,6 +24,9 @@
     <link rel="stylesheet" href="{{ asset('components/dist/css/skins/_all-skins.min.css')}}">
 
     <link rel="stylesheet" href="{{ asset('components/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+    <!-- Croppie -->
+    <link rel="stylesheet" href="{{ asset('components/croppie/croppie.css') }}">
+
     <!-- Google Fonts
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     -->
@@ -61,7 +68,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="{{ asset('images/user-avatar/default-avatar.png') }}" class="user-image avatar" alt="User Image">
-                  <span class="hidden-xs">Luis Zacarías</span>
+                  <span class="hidden-xs">{{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -69,7 +76,7 @@
                     <img src="{{ asset('images/user-avatar/default-avatar.png') }}" class="img-circle avatar" alt="User Image">
 
                     <p>
-                    Luis Zacarías - Web Developer
+                    {{ Auth::user()->name }} - Web Developer
                       <small>Member since Nov. 2012</small>
                     </p>
                   </li>
@@ -94,7 +101,17 @@
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+
+                      <a href="{{ route('logout') }}"
+                          onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();"
+                          class="btn btn-default btn-flat">
+                          Cerrar
+                      </a>
+
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                      </form>
                     </div>
                   </li>
                 </ul>
@@ -117,7 +134,7 @@
               <img src="{{ asset('images/user-avatar/default-avatar.png') }}" class="img-circle avatar" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Luis Zacarías</p>
+              <p>{{ Auth::user()->name }}</p>
               <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
             </div>
           </div>
@@ -136,13 +153,13 @@
           <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENÚ</li>
             <li>
-              <a href="#">
+              <a href="{{ route('home') }}">
                 <i class="fa fa-th"></i> <span>Home</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <i class="fa fa-plus"></i> <span>Nuevo Producto</span>
+              <a href="{{ route('new.article') }}">
+                <i class="fa fa-plus"></i> <span>Nuevo Artículo</span>
               </a>
             </li>
             <!--<li class="active treeview">
@@ -544,7 +561,16 @@
     <script src="{{ asset('components/dist/js/adminlte.min.js') }}" charset="utf-8"></script>
     <script src="{{ asset('components/dist/js/pages/dashboard.js') }}" charset="utf-8"></script>
     <script src="{{ asset('components/dist/js/demo.js') }}" charset="utf-8"></script>
+
+    <!-- Croppie -->
+    <script src="{{ asset('components/croppie/croppie.js') }}" charset="utf-8"></script>
+
+    <!-- funciones generales -->
+    <script src="{{ asset('js/public.js') }}" charset="utf-8"></script>
+
     <script>
+      var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      var base_path = "{{url('/')}}";
       $.widget.bridge('uibutton', $.ui.button);
     </script>
     @yield('javascript')

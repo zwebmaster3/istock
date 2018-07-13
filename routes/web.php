@@ -15,7 +15,22 @@
 //     return view('home');
 // });
 
-Route::get('/', 'HomeController@index')->name('home');
+Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    return redirect()->route('home');
+});
+Route::get('/home', 'PanelController@index')->name('home');
+Route::get('/new-article', 'PanelController@newArticleView')->name('new.article');
+Route::post('/articles', 'PanelController@articles')->name('articles');
+
+Route::group(['prefix' => 'articles_'], function() {
+    ///Route::get('/articles')
+});
+
+
+
+//Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin'], function() {
   Route::resource('users', 'UsersController');
@@ -32,10 +47,3 @@ Route::group(['prefix' => 'saludos'], function(){
 		'as' => 'saludosview'
 	]);
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/index', function() {
-  return view('index');
-})->name('index');
