@@ -27,6 +27,7 @@
     <!-- Croppie -->
     <link rel="stylesheet" href="{{ asset('components/croppie/croppie.css') }}">
 
+
     <!-- Google Fonts
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     -->
@@ -545,6 +546,8 @@
 
 
 
+
+
     </div>
     <!-- /.wrapper -->
 
@@ -564,6 +567,10 @@
 
     <!-- Croppie -->
     <script src="{{ asset('components/croppie/croppie.js') }}" charset="utf-8"></script>
+
+    <!-- sweetalert2 (style sheet includes) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.0/dist/sweetalert2.all.min.js"></script>
+
 
     <!-- funciones generales -->
     <script src="{{ asset('js/public.js') }}" charset="utf-8"></script>

@@ -78,12 +78,7 @@
             </div>
 
             <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="descripción">
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button"><i class="fa fa-plus"></i> </button>
-                </span>
-              </div>
+              <input type="text" class="form-control" placeholder="Clave">
               <br>
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Cantidad">
@@ -99,12 +94,15 @@
             </div>
 
             <div class="col-md4 col-sm-4 col-xs-12">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Clave">
+              <select id="" class="form-control">
+                <option>-- Categoría --</option>
+              </select>
+              <!-- <div class="input-group">
+                <input type="text" class="form-control" placeholder="Categoría">
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="button"><i class="fa fa-plus"></i> </button>
                 </span>
-              </div>
+              </div> -->
               <br>
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Cantidad de reserva">
@@ -140,43 +138,7 @@
 
 
   <div class="row">
-    <div class="col-md-4">
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Galeria de imágenes</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div id="contentSelectImageGallery">
-                <input type="file" id="inputFileGallery" style="display: none">
-                <a href="javascript:void(0)" class="thumbnail">
-                  <img id="galleryImg" src="{{ asset('images/resource/image-placeholder-multiple.png') }}" onclick="chooseImage(event)" data-target="inputFileGallery" alt="gallery" style="height: 250px;">
-                </a>
-              </div>
-              <div id="contentCropImageGallery" style="display: none">
-                <div class="crop-image">
-                  <br>
-                  <div id="cropImageGallery"></div>
-                </div>
-                <div class="text-center crop-image-footer">
-                  <button class="btn btn-primary" onclick="chooseImage(event)" data-target="inputFileGallery"><i class="fa fa-folder-open"></i> Elegir Imagen</button>
-                  <button class="btn btn-primary" onclick="saveImage(event)" data-swithcase="uploadImageGallery"><i class="fa fa-save"></i> Guardar</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- ./box-body -->
-      </div>
-      <!-- /.box -->
-    </div>
+
     <div class="col-md-8">
       <div class="box">
         <div class="box-header with-border">
@@ -195,10 +157,61 @@
               </a>
             </div> -->
             <!-- Gallery -->
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="alert bg-gray disabled text-center">
+                <strong>¡Sin imágenes!</strong> No hay imágenes para mostrar.
+              </div>
+            </div>
+            @for ($i = 0; $i < 4; $i++)
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <a href="javascript:void(0)" class="thumbnail">
+                <img id="coverImg" src="{{ asset('images/resource/camera.png') }}" alt="image-gallery" style="height: auto; width: 100%;">
+              </a>
+            </div>
+            @endfor
 
 
 
 
+
+
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- ./box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <div class="col-md-4">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Seleccionar imágenes</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div id="contentSelectImageGallery">
+                <input type="file" id="inputFileGallery" style="display: none">
+                <a href="javascript:void(0)" class="thumbnail">
+                  <img id="galleryImg" src="{{ asset('images/resource/open-file-button.png') }}" onclick="chooseImage(event)" data-target="inputFileGallery" alt="gallery" style="height: 130px; margin: 60px 120px;">
+                </a>
+              </div>
+              <div id="contentCropImageGallery" style="display: none">
+                <div class="crop-image">
+                  <br>
+                  <div id="cropImageGallery"></div>
+                </div>
+                <div class="text-center crop-image-footer">
+                  <button class="btn btn-primary" onclick="chooseImage(event)" data-target="inputFileGallery"><i class="fa fa-folder-open"></i> Elegir Imagen</button>
+                  <button class="btn btn-primary" onclick="saveImage(event)" data-swithcase="uploadImageGallery"><i class="fa fa-save"></i> Guardar</button>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- /.row -->
         </div>

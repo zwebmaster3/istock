@@ -13,49 +13,16 @@ var articleId = 0;
 function chooseImage(e){
   var element = $(e.target).data("target");
   switch (element) {
-    case "inputFileCover":
+    case 'inputFileCover':
       $("#inputFileCover").val('').click();
       break;
-    case "inputFileGallery":
+    case 'inputFileGallery':
       $("#inputFileGallery").val('').click();
     default:
   }
 }
 
-$("#inputFileGallery").change(function() {
-  if(typeof vanilla === 'undefined'){
 
-  } else {
-    vanilla.destroy();
-  }
-
-  var file = this.files[0];
-  var match = ['image/jpg', 'image/jpeg', 'image/png'];
-
-  var reader = new FileReader();
-
-  if(file.type == match[0] || file.type == match[1] || file.type == match[2]) {
-    reader.onload = function(e){
-      var el = document.getElementById("cropImageGallery");
-      vanilla =  new Croppie(el, {
-        viewport: { width: 150, height: 150},
-        boundary: { width: 200, height: 200},
-        showZoomer: true,
-        enableOrientation: false
-      });
-      vanilla.bind({
-        url: e.target.result,
-        orientation: 4
-      });
-    }
-    $("#contentSelectImageGallery").hide();
-    $("#contentCropImageGallery").show();
-
-    reader.readAsDataURL(file);
-  } else {
-    alert("El formato de archivo que intenta subir no esta permitido. Formatos permitidos (.jpg, .jpeg, .png)")
-  }
-});
 
 $("#inputFileCover").change(function() {
   if(typeof vanilla === 'undefined'){
@@ -137,11 +104,55 @@ $("#inputFileCover").change(function() {
     });*/
 
   } else {
-    alert("El formato de archivo que intenta subir no esta permitido. Formatos permitidos (.jpg, .jpeg, .png)")
+    swal({
+      type: 'error',
+      title: 'Error',
+      text: 'El formato de archivo que intenta subir no esta permitido. Formatos permitidos (.jpg, .jpeg, .png)',
+      confirmButtonText: 'Aceptar'
+    });
   }
 
 });
 
+$("#inputFileGallery").change(function() {
+  if(typeof vanilla === 'undefined'){
+
+  } else {
+    vanilla.destroy();
+  }
+
+  var file = this.files[0];
+  var match = ['image/jpg', 'image/jpeg', 'image/png'];
+
+  var reader = new FileReader();
+
+  if(file.type == match[0] || file.type == match[1] || file.type == match[2]) {
+    reader.onload = function(e){
+      var el = document.getElementById("cropImageGallery");
+      vanilla =  new Croppie(el, {
+        viewport: { width: 150, height: 150},
+        boundary: { width: 200, height: 200},
+        showZoomer: true,
+        enableOrientation: false
+      });
+      vanilla.bind({
+        url: e.target.result,
+        orientation: 4
+      });
+    }
+    $("#contentSelectImageGallery").hide();
+    $("#contentCropImageGallery").show();
+
+    reader.readAsDataURL(file);
+  } else {
+    swal({
+      type: 'error',
+      title: 'Error',
+      text: 'El formato de archivo que intenta subir no esta permitido. Formatos permitidos (.jpg, .jpeg, .png)',
+      confirmButtonText: 'Aceptar'
+    });
+  }
+});
 
 
 function saveImage(e) {
@@ -193,8 +204,6 @@ function saveImage(e) {
 
             $("#galleryContent").append(newElement);
           }
-
-
         }
 
         if(response.status == "error") {
